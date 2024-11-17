@@ -1,4 +1,4 @@
-import { Button } from "@material-tailwind/react";
+import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 
 const CarCard = ({ car }) => {

@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import NotFound from "@/pages/NotFound";
 import Register from "@/pages/Register";
+import CarProduct from "./pages/CarProduct";
 
 const router = createBrowserRouter([
   {
@@ -10,6 +11,10 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
+  },
+  {
+    path: "/cars",
+    element: <CarProduct />,
   },
 ]);
 

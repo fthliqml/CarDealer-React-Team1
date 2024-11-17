@@ -1,4 +1,5 @@
 import CarList from "@/components/CarProduct/CarList";
+import Container from "@/components/ui/container";
 
 import useFetchCars from "@/hooks/useFetchAllCars";
 
@@ -7,9 +8,9 @@ function CarProduct() {
   const { cars, loading } = useFetchCars(limit, 0);
 
   return (
-    <div className="container mx-auto py-4">
+    <Container>
       <CarList cars={cars} />
-    </div>
+    </Container>
   );
 }
 

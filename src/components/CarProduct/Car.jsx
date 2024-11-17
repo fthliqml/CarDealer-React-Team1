@@ -1,41 +1,26 @@
 import { Button } from "@/components/ui/button";
+import { useCart } from "@/contexts/cartContext";
 import capitalizeFirstLetter from "@/utils/capitalizeFirstLetter";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const CarCard = ({ car }) => {
   const [isAddedToCart, setIsAddedToCart] = useState(false);
-  const [cart, setCart] = useState([]);
+  const { setCart } = useCart();
 
   const date = car?.createdAt
     ? new Date(car.createdAt).toLocaleString("id-ID")
     : "Tanggal tidak tersedia";
 
-  useEffect(() => {
-    const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
-    setCart(storedCart);
-
-    const isCarInCart = storedCart.some((item) => item.id === car.id);
-    setIsAddedToCart(isCarInCart);
-  }, [car.id]);
-
   const handleCart = () => {
-    const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
+    isAddedToCart
+      ? setCart((prevArr) => prevArr.filter((item) => item.id !== car.id))
+      : setCart((prevArr) => [...prevArr, car]);
 
-    if (isAddedToCart) {
-      const updatedCart = storedCart.filter((item) => item.id !== car.id);
-      localStorage.setItem("cart", JSON.stringify(updatedCart));
-      setCart(updatedCart);
-    } else {
-      const updatedCart = [...storedCart, car];
-      localStorage.setItem("cart", JSON.stringify(updatedCart));
-      setCart(updatedCart);
-    }
-
-    setIsAddedToCart(!isAddedToCart);
+    setIsAddedToCart((prev) => !prev);
   };
 
   return (
-    <div className="w-[90%] md:w-80 xl:w-96 m-auto bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <div className="w-[90%] md:w-96 lg:w-80 xl:w-96 m-auto bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
       <img className="w-full h-72 object-cover" src={car.image} alt="car" />
 
       <div className="p-4">

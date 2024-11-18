@@ -4,11 +4,28 @@ import { Button } from "@/components/ui/button";
 import { CardFooter } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 
-const FormFooter = () => {
+const FormFooter = ({ state }) => {
   return (
     <CardFooter className="flex-col gap-2">
-      <Button className={"w-full bg-[#5e8979] hover:bg-[#16423C]"}>
-        Sign Up
+      <Button
+        type="submit"
+        className={"w-full bg-[#5e8979] hover:bg-[#16423C]"}
+        disabled={
+          state.errors.name ||
+          state.errors.email ||
+          state.errors.password ||
+          state.isSubmitting ||
+          state.submitSuccess
+        }
+      >
+        {state.isSubmitting || state.submitSuccess ? (
+          <>
+            <img src="tube-spinner.svg" className="w-7" alt="spinner"></img>
+            {state.submitSuccess ? "Redirecting..." : "Processing..."}
+          </>
+        ) : (
+          "Sign Up"
+        )}
       </Button>
       <Label className={"text-sm text-slate-500"}>
         Already have an account?{" "}

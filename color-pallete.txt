@@ -1,0 +1,3 @@
+soft: #C4DAD2
+med: #5e8979
+hard: #16423C

@@ -12,23 +12,21 @@ import { Label } from "@/components/ui/label";
 const FormBody = ({ children }) => {
   return (
     <CardContent>
-      <form>
-        <div className="grid w-full items-center gap-4">
-          {children}
-          <div className="flex flex-col space-y-1.5">
-            <Label htmlFor="interest">Interest</Label>
-            <Select className={"rounded-xl"}>
-              <SelectTrigger id="interest">
-                <SelectValue placeholder="Select" />
-              </SelectTrigger>
-              <SelectContent position="popper">
-                <SelectItem value="newCar">New Car</SelectItem>
-                <SelectItem value="secondCar">Second Car</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+      <div className="grid w-full items-center gap-4">
+        {children}
+        <div className="flex flex-col space-y-1.5">
+          <Label htmlFor="interest">Interest</Label>
+          <Select className={"rounded-xl"}>
+            <SelectTrigger id="interest">
+              <SelectValue placeholder="Select" />
+            </SelectTrigger>
+            <SelectContent position="popper">
+              <SelectItem value="newCar">New Car</SelectItem>
+              <SelectItem value="secondCar">Second Car</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
-      </form>
+      </div>
     </CardContent>
   );
 };

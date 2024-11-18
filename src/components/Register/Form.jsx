@@ -1,16 +1,15 @@
 import { Card } from "@/components/ui/card";
-import Container from "@/components/ui/container";
 
 import FormBackground from "@/components/Register/FormBackground";
 
-const Form = ({ children }) => {
+const Form = ({ children, ...props }) => {
   return (
-    <Container className={"flex justify-center items-center"}>
-      <Card className="w-1/4 h-1/2 backdrop-blur-sm bg-[#E9EFEC]/70">
-        {children}
+    <>
+      <Card className="backdrop-blur-sm bg-[#E9EFEC]/70">
+        <form {...props}>{children}</form>
       </Card>
       <FormBackground />
-    </Container>
+    </>
   );
 };
 

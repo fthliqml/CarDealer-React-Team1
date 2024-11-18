@@ -54,6 +54,27 @@ export default {
           5: "hsl(var(--chart-5))",
         },
       },
+      keyframes: {
+        slideIn: {
+          "0%": { transform: "translate(-50%, -50%)", opacity: "0" },
+          "100%": { transform: "translate(-50%, 0)", opacity: "1" },
+        },
+        slideOut: {
+          "0%": { transform: "translate(-50%, 0)", opacity: "1" },
+          "100%": { transform: "translate(-50%, -50%)", opacity: "0" },
+        },
+        shake: {
+          "0%, 100%": { transform: "translateX(-50%)" },
+          "25%": { transform: "translateX(calc(-50% - 10px))" },
+          "50%": { transform: "translateX(calc(-50% + 10px))" },
+          "75%": { transform: "translateX(calc(-50% - 5px))" },
+        },
+      },
+      animation: {
+        "slide-in": "slideIn 0.7s ease-out forwards",
+        "slide-out": "slideOut 0.7s ease-in",
+        shake: "shake 0.7s ease-in-out",
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],

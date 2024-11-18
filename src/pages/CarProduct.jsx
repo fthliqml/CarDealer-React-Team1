@@ -1,12 +1,19 @@
 import CarList from "@/components/CarProduct/CarList";
 import Navbar from "@/components/Navbar/Navbar";
 import Container from "@/components/ui/container";
+import Pagination from "@/components/CarProduct/Pagination";
 
 import useFetchCars from "@/hooks/useFetchAllCars";
+import { useState } from "react";
 
 function CarProduct() {
-  const limit = 20;
-  const { cars, loading, error } = useFetchCars(limit, 0);
+  const limit = 12;
+  const [page, SetPage] = useState(1);
+  const offset = (page - 1) * limit;
+
+  const { cars, loading, error, totalData } = useFetchCars(limit, offset);
+
+  const totalPages = Math.ceil(totalData / limit);
 
   return (
     <>
@@ -24,7 +31,16 @@ function CarProduct() {
             </span>
           </div>
         ) : (
-          <CarList cars={cars} />
+          <>
+            <CarList cars={cars} />
+            {totalPages > 1 && (
+              <Pagination
+                page={page}
+                totalPages={totalPages}
+                onSetPage={SetPage}
+              />
+            )}
+          </>
         )}
       </Container>
     </>

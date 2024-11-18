@@ -1,4 +1,5 @@
 import apiInstance from "@/api/apiInstance";
+import useLocalStorageState from "@/hooks/useLocalStorageState";
 import { createContext, useContext, useEffect, useState } from "react";
 
 const authContext = createContext();
@@ -8,7 +9,10 @@ const AuthProvider = ({ children }) => {
   const [authError, setAuthError] = useState(
     "Session is over, please login again..."
   );
-  const [isAuthorized, setIsAuthorized] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useLocalStorageState(
+    false,
+    "isAuthenticated"
+  );
 
   useEffect(() => {
     async function fetchUser() {
@@ -22,21 +26,22 @@ const AuthProvider = ({ children }) => {
         if (data.isSuccess) {
           const user = data.data.user;
           setUser(user);
+          setAuthError(null);
         }
       } catch (error) {
         console.error(error);
         if (error.status === 401) {
           setAuthError("Session is over, please login again...");
-          setIsAuthorized(false);
+          setIsAuthenticated(false);
         }
       }
     }
-    if (isAuthorized) fetchUser();
-  }, [isAuthorized]);
+    if (isAuthenticated) fetchUser();
+  }, [isAuthenticated, setIsAuthenticated]);
 
   return (
     <authContext.Provider
-      value={{ user, authError, isAuthorized, setIsAuthorized }}
+      value={{ user, authError, isAuthenticated, setIsAuthenticated }}
     >
       {children}
     </authContext.Provider>

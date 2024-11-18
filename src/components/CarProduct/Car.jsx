@@ -7,7 +7,7 @@ import apiInstance from "@/api/apiInstance";
 
 const CarCard = ({ car }) => {
   const [isAddedToCart, setIsAddedToCart] = useState(false);
-  const { setCart } = useCart();
+  const { addToCart, deleteFromCart, storedCart } = useCart();
   const [loading, setLoading] = useState(true);
   const [isConfirming, setIsConfirming] = useState(false);
   const [alert, setAlert] = useState({
@@ -18,15 +18,19 @@ const CarCard = ({ car }) => {
   const alertRef = useRef(null);
   const confirmRef = useRef(null);
 
+  useEffect(() => {
+    const isAddedToStoredCart = storedCart.some(
+      (storedItem) => storedItem.id === car.id
+    );
+    if (isAddedToStoredCart) setIsAddedToCart(true);
+  }, [car.id, storedCart]);
+
   const date = car?.createdAt
     ? new Date(car.createdAt).toLocaleString("id-ID")
     : "Tanggal tidak tersedia";
 
   const handleCart = () => {
-    isAddedToCart
-      ? setCart((prevArr) => prevArr.filter((item) => item.id !== car.id))
-      : setCart((prevArr) => [...prevArr, car]);
-
+    isAddedToCart ? deleteFromCart(car) : addToCart(car);
     setIsAddedToCart((prev) => !prev);
   };
 
@@ -93,11 +97,18 @@ const CarCard = ({ car }) => {
 
         <p className="mt-1 text-gray-500 text-xs">Dibuat pada: {date}</p>
 
-        <Button className={`mt-4 w-full bg-green-500`} onClick={handleCart}>
-          Add
+        <Button
+          className={`mt-4 w-full ${
+            isAddedToCart
+              ? "bg-yellow-500 hover:bg-yellow-700"
+              : "bg-[#5e8979] hover:bg-[#16423C]"
+          }`}
+          onClick={handleCart}
+        >
+          {isAddedToCart ? "Delete from cart" : "Add to cart"}
         </Button>
         <Button className={`mt-4 w-full bg-red-500`} onClick={deleteCar}>
-          Delete
+          Delete car permanently
         </Button>
       </div>
       {isConfirming && (

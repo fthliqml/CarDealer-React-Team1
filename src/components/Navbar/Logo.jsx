@@ -1,11 +1,7 @@
 const Logo = () => {
   return (
     <div className="flex shrink-0 items-center">
-      <img
-        alt="Your Company"
-        src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=500"
-        className="h-8 w-auto"
-      />
+      <img alt="Company" src="/dealer-logo.jpg" className="h-11 w-auto" />
     </div>
   );
 };

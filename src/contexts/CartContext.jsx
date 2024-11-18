@@ -1,11 +1,30 @@
+import useLocalStorageState from "@/hooks/useLocalStorageState";
 import { createContext, useContext, useState } from "react";
 
 const cartContext = createContext();
 
 const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState([]);
+  const [storedCart, setStoredCart] = useLocalStorageState([], "cart");
+  const [cart, setCart] = useState(storedCart);
+
+  function addToCart(item) {
+    setCart((prevArr) => [...prevArr, item]);
+    setStoredCart((prevArr) => [...prevArr, item]);
+  }
+
+  function deleteFromCart(item) {
+    setCart((prevArr) =>
+      prevArr.filter((storedItem) => storedItem.id !== item.id)
+    );
+    setStoredCart((prevArr) =>
+      prevArr.filter((storedItem) => storedItem.id !== item.id)
+    );
+  }
+
   return (
-    <cartContext.Provider value={{ cart, setCart }}>
+    <cartContext.Provider
+      value={{ cart, addToCart, deleteFromCart, storedCart }}
+    >
       {children}
     </cartContext.Provider>
   );

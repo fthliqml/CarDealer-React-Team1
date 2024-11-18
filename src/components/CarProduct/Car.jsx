@@ -6,8 +6,8 @@ import MyAlert from "../ui/myAlert";
 import apiInstance from "@/api/apiInstance";
 
 const CarCard = ({ car }) => {
-  const [isAddedToCart, setIsAddedToCart] = useState(false);
   const { addToCart, deleteFromCart, storedCart } = useCart();
+  const [isAddedToCart, setIsAddedToCart] = useState(false);
   const [loading, setLoading] = useState(true);
   const [isConfirming, setIsConfirming] = useState(false);
   const [alert, setAlert] = useState({

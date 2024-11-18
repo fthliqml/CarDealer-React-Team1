@@ -7,6 +7,7 @@ import NotFound from "@/pages/NotFound";
 import Register from "@/pages/Register";
 import CarProduct from "./pages/CarProduct";
 import Login from "./pages/Login";
+import UpdateCar from "./pages/UpdateCar";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
   {
     path: "/cars",
     element: <CarProduct />,
+  },
+  {
+    path: "/update",
+    element: <UpdateCar />,
   },
 ]);
 

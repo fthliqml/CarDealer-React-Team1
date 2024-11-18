@@ -4,8 +4,11 @@ import capitalizeFirstLetter from "@/utils/capitalizeFirstLetter";
 import { useEffect, useRef, useState } from "react";
 import MyAlert from "../ui/myAlert";
 import apiInstance from "@/api/apiInstance";
+import useLocalStorageState from "@/hooks/useLocalStorageState";
+import { useNavigate } from "react-router-dom";
 
 const CarCard = ({ car }) => {
+  const navigate = useNavigate();
   const { addToCart, deleteFromCart, storedCart } = useCart();
   const [isAddedToCart, setIsAddedToCart] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -17,6 +20,7 @@ const CarCard = ({ car }) => {
   });
   const alertRef = useRef(null);
   const confirmRef = useRef(null);
+  const [carData, setCarData] = useLocalStorageState("", "car data");
 
   useEffect(() => {
     const isAddedToStoredCart = storedCart.some(
@@ -52,6 +56,11 @@ const CarCard = ({ car }) => {
 
   const deleteCar = async () => {
     setIsConfirming(true);
+  };
+
+  const updateCar = async () => {
+    await setCarData(car);
+    navigate("/update");
   };
 
   const confirmDelete = async () => {
@@ -109,6 +118,9 @@ const CarCard = ({ car }) => {
         </Button>
         <Button className={`mt-4 w-full bg-red-500`} onClick={deleteCar}>
           Delete car permanently
+        </Button>
+        <Button className={`mt-4 w-full bg-blue-500`} onClick={updateCar}>
+          Update car
         </Button>
       </div>
       {isConfirming && (

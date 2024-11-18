@@ -26,11 +26,14 @@ import {
 } from "@/components/ui/card";
 import { User } from "lucide-react";
 import { Label } from "@/components/ui/label";
+import { useUser } from "@/contexts/AuthContext";
 
 const Login = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const alertRef = useRef(null);
   const navigate = useNavigate();
+
+  const { setIsAuthorized } = useUser();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -61,15 +64,25 @@ const Login = () => {
 
     setTimeout(async () => {
       try {
-        await apiInstance.post("/auth/login", loginUser);
+        const response = await apiInstance.post("/auth/login", loginUser, {
+          withCredentials: true,
+        });
 
+        const resAPI = response.data;
+
+        console.log("resAPI", resAPI);
+
+        if (resAPI.isSuccess) {
+          localStorage.setItem("isAuthenticated", true);
+          setIsAuthorized(true);
+          dispatch({ type: "SUBMIT_SUCCESS" });
+          showAlert();
+
+          setTimeout(() => {
+            navigate("/car");
+          }, 3000);
+        }
         // success
-        dispatch({ type: "SUBMIT_SUCCESS" });
-        showAlert();
-
-        setTimeout(() => {
-          navigate("/car");
-        }, 3000);
       } catch (error) {
         const errorMessage = error.response?.data?.message || error.message;
         if (error.status === 400) {

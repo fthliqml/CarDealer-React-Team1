@@ -63,7 +63,7 @@ const CarCard = ({ car }) => {
         variant: "success",
       });
     } catch (error) {
-      console.log("error");
+      console.log(error);
       setAlert({
         title: "Error",
         description: "Failed to delete the car.",

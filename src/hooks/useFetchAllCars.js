@@ -1,3 +1,4 @@
+import { useUser } from "@/contexts/AuthContext";
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -7,6 +8,9 @@ const useFetchCars = (limit, offset) => {
   const [cars, setCars] = useState([]);
   const [totalData, setTotalData] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+
+  const { setIsAuthenticated } = useUser();
 
   const navigate = useNavigate();
 
@@ -26,9 +30,13 @@ const useFetchCars = (limit, offset) => {
         }
       } catch (err) {
         if (err.status === 401) {
-          return navigate("/login");
+          setIsAuthenticated(false);
         }
         console.log(err);
+        setError(true);
+        setTimeout(() => {
+          navigate("/login");
+        }, 3000);
       } finally {
         setLoading(false);
       }
@@ -42,9 +50,9 @@ const useFetchCars = (limit, offset) => {
       left: 0,
       behavior: "smooth",
     });
-  }, [limit, offset, navigate]);
+  }, [limit, offset, setIsAuthenticated]);
 
-  return { cars, totalData, loading };
+  return { cars, totalData, loading, error };
 };
 
 export default useFetchCars;

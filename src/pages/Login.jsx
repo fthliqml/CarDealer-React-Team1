@@ -1,8 +1,4 @@
-import {
-  AtSymbolIcon,
-  UserIcon,
-  LockClosedIcon,
-} from "@heroicons/react/24/outline";
+import { AtSymbolIcon, LockClosedIcon } from "@heroicons/react/24/outline";
 import { useReducer, useRef } from "react";
 
 import InputField from "@/components/Register/InputField";
@@ -33,7 +29,7 @@ const Login = () => {
   const alertRef = useRef(null);
   const navigate = useNavigate();
 
-  const { setIsAuthorized } = useUser();
+  const { setIsAuthenticated } = useUser();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -73,13 +69,12 @@ const Login = () => {
         console.log("resAPI", resAPI);
 
         if (resAPI.isSuccess) {
-          localStorage.setItem("isAuthenticated", true);
-          setIsAuthorized(true);
+          setIsAuthenticated(true);
           dispatch({ type: "SUBMIT_SUCCESS" });
           showAlert();
 
           setTimeout(() => {
-            navigate("/car");
+            navigate("/cars");
           }, 3000);
         }
         // success

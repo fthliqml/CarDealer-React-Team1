@@ -1,4 +1,4 @@
-import CartItem from "@/components/Cart/cartItem";
+import CartItem from "@/components/Cart/CartItem";
 import Navbar from "@/components/Navbar/Navbar";
 import { Button } from "@/components/ui/button";
 import Container from "@/components/ui/container";

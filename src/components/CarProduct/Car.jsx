@@ -23,7 +23,7 @@ const CarCard = ({ car }) => {
   });
   const alertRef = useRef(null);
   const confirmRef = useRef(null);
-  const [carData, setCarData] = useLocalStorageState("", "car data");
+  const [carData, setCarData] = useLocalStorageState(null, "car data");
 
   useEffect(() => {
     const isAddedToStoredCart = storedCart.some(

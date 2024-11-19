@@ -61,7 +61,6 @@ const CreateCarForm = ({ onCarCreated }) => {
         setTimeout(() => {
           navigate("/cars");
         }, 3000);
-        
       } else {
         triggerAlert({
           title: "Error",

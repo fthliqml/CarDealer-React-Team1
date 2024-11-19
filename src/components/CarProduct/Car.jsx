@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { useCart } from "@/contexts/cartContext";
+import { useCart } from "@/contexts/CartContext";
 import capitalizeFirstLetter from "@/utils/capitalizeFirstLetter";
 import { useEffect, useRef, useState } from "react";
 import MyAlert from "../ui/myAlert";

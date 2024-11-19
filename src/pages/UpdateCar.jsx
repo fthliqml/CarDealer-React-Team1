@@ -15,7 +15,7 @@ const UpdateCar = () => {
   const [year, setYear] = useState("");
   const [size, setSize] = useState("");
   const [notification, setNotification] = useState(null);
-  const [carData, setCarData] = useLocalStorageState("", "car data");
+  const [carData, setCarData] = useLocalStorageState(null, "car data");
 
   if (carData === "") {
     navigate("/cars");

@@ -33,7 +33,7 @@ const AuthProvider = ({ children }) => {
         if (error.status === 401) {
           setAuthError("Session is over, please login again...");
           setIsAuthenticated(false);
-          localStorage.clear();
+          setUser(null);
         }
       }
     }

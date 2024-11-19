@@ -21,9 +21,9 @@ function CarProduct() {
       <Container className={"mt-24"}>
       <button
           onClick={handleNavigate}
-          className="bg-blue-500 text-white py-2 px-4 rounded mb-4"
+          className="bg-blue-500 text-white py-2 px-4 rounded mb-4 ml-2"
         >
-          Go to Create Car Form
+          Go to Create Car
         </button>
         <CarList cars={cars} />
       </Container>

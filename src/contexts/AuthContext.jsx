@@ -5,7 +5,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 const authContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useLocalStorageState(null, "user");
   const [authError, setAuthError] = useState(
     "Session is over, please login again..."
   );
@@ -33,11 +33,12 @@ const AuthProvider = ({ children }) => {
         if (error.status === 401) {
           setAuthError("Session is over, please login again...");
           setIsAuthenticated(false);
+          localStorage.clear();
         }
       }
     }
     if (isAuthenticated) fetchUser();
-  }, [isAuthenticated, setIsAuthenticated]);
+  }, [isAuthenticated, setIsAuthenticated, setUser]);
 
   return (
     <authContext.Provider

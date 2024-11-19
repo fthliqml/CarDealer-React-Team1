@@ -6,9 +6,12 @@ import MyAlert from "../ui/myAlert";
 import apiInstance from "@/api/apiInstance";
 import useLocalStorageState from "@/hooks/useLocalStorageState";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "@/contexts/AuthContext";
+import roleCheck from "@/utils/roleCheck";
 
 const CarCard = ({ car }) => {
   const navigate = useNavigate();
+  const { user } = useUser();
   const { addToCart, deleteFromCart, storedCart } = useCart();
   const [isAddedToCart, setIsAddedToCart] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -71,6 +74,7 @@ const CarCard = ({ car }) => {
         description: "Car deleted successfully.",
         variant: "success",
       });
+      navigate(0);
     } catch (error) {
       console.log(error);
       setAlert({
@@ -116,12 +120,16 @@ const CarCard = ({ car }) => {
         >
           {isAddedToCart ? "Delete from cart" : "Add to cart"}
         </Button>
-        <Button className={`mt-4 w-full bg-red-500`} onClick={deleteCar}>
-          Delete car permanently
-        </Button>
-        <Button className={`mt-4 w-full bg-blue-500`} onClick={updateCar}>
-          Update car
-        </Button>
+        {roleCheck(user?.role, ["admin", "superadmin"]) && (
+          <>
+            <Button className={`mt-4 w-full bg-red-500`} onClick={deleteCar}>
+              Delete car permanently
+            </Button>
+            <Button className={`mt-4 w-full bg-blue-500`} onClick={updateCar}>
+              Update car
+            </Button>
+          </>
+        )}
       </div>
       {isConfirming && (
         <MyAlert

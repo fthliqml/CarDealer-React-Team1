@@ -1,5 +1,5 @@
+import apiInstance from "@/api/apiInstance";
 import { useUser } from "@/contexts/AuthContext";
-import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -17,8 +17,8 @@ const useFetchCars = (limit, offset) => {
   useEffect(() => {
     async function fetchCars() {
       try {
-        const res = await axios.get(
-          `http://localhost:3000/api/v1/cars?limit=${limit}&offset=${offset}`,
+        const res = await apiInstance.get(
+          `/cars?limit=${limit}&offset=${offset}`,
           { withCredentials: true }
         );
         const data = res.data;
@@ -50,7 +50,7 @@ const useFetchCars = (limit, offset) => {
       left: 0,
       behavior: "smooth",
     });
-  }, [limit, offset, setIsAuthenticated]);
+  }, [limit, offset, setIsAuthenticated, navigate]);
 
   return { cars, totalData, loading, error };
 };

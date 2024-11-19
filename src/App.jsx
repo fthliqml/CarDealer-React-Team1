@@ -9,6 +9,7 @@ import CarProduct from "@/pages/CarProduct";
 import CreateCarForm from "@/components/CarProduct/CreateCarForm";
 import Login from "@/pages/Login";
 import UpdateCar from "@/pages/UpdateCar";
+import Cart from "@/pages/Cart";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
   {
     path: "/update",
     element: <UpdateCar />,
+  },
+  {
+    path: "/cart",
+    element: <Cart />,
   },
 ]);
 

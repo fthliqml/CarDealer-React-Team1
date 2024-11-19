@@ -3,18 +3,22 @@ import Navbar from "@/components/Navbar/Navbar";
 import Container from "@/components/ui/container";
 import Pagination from "@/components/CarProduct/Pagination";
 
-import useFetchCars from "@/hooks/useFetchAllCars";
+import useFetchCars from "@/services/useFetchCars";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "@/contexts/AuthContext";
+import roleCheck from "@/utils/roleCheck";
 
 function CarProduct() {
   const limit = 12;
   const [page, SetPage] = useState(1);
   const offset = (page - 1) * limit;
 
-  const { cars, loading, error, totalData } = useFetchCars(limit, offset);
-
+  const { cars, error, totalData } = useFetchCars(limit, offset);
   const totalPages = Math.ceil(totalData / limit);
+
+  const { user } = useUser();
+  const isUserMember = roleCheck(user?.role, ["member"]);
 
   const navigate = useNavigate();
 
@@ -39,12 +43,15 @@ function CarProduct() {
           </div>
         ) : (
           <>
-            <button
-              onClick={handleNavigate}
-              className="bg-blue-500 text-white py-2 px-4 rounded mb-4 ms-5"
-            >
-              Go to Create Car Form
-            </button>
+            {!isUserMember && (
+              <button
+                onClick={handleNavigate}
+                className="bg-blue-500 text-white py-2 px-4 rounded mb-4 ms-5"
+              >
+                Go to Create Car Form
+              </button>
+            )}
+
             <CarList cars={cars} />
             {totalPages > 1 && (
               <Pagination

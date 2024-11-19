@@ -1,4 +1,4 @@
-import { useCart } from "@/contexts/cartContext";
+import { useCart } from "@/contexts/CartContext";
 import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router-dom";
 

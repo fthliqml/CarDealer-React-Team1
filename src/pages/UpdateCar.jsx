@@ -1,10 +1,10 @@
+import apiInstance from "@/api/apiInstance";
 import FormBackground from "@/components/Register/FormBackground";
 import { Card } from "@/components/ui/card";
 import Container from "@/components/ui/container";
 import UpdateHeader from "@/components/UpdateCar/UpdateHeader";
 import UpdateNotification from "@/components/UpdateCar/UpdateNotification";
 import useLocalStorageState from "@/hooks/useLocalStorageState";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -30,8 +30,8 @@ const UpdateCar = () => {
 
   const updateCars = async (name, model, year, size) => {
     try {
-      const response = await axios.patch(
-        `http://localhost:3000/api/v1/cars/${carData.id}`,
+      const response = await apiInstance.patch(
+        `/cars/${carData.id}`,
         {
           name,
           model,

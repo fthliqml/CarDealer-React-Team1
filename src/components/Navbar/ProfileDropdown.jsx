@@ -5,6 +5,7 @@ import apiInstance from "@/api/apiInstance";
 import { Button } from "@/components/ui/button";
 
 import UserProfile from "@/components/UserProfile/UserProfile";
+import handleLogout from "@/services/logoutServices";
 
 const ProfileDropdown = () => {
   const { setIsAuthenticated } = useUser();

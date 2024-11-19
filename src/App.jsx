@@ -5,9 +5,10 @@ import {
 } from "react-router-dom";
 import NotFound from "@/pages/NotFound";
 import Register from "@/pages/Register";
-import CarProduct from "./pages/CarProduct";
-import Login from "./pages/Login";
-import UpdateCar from "./pages/UpdateCar";
+import CarProduct from "@/pages/CarProduct";
+import CreateCarForm from "@/components/CarProduct/CreateCarForm";
+import Login from "@/pages/Login";
+import UpdateCar from "@/pages/UpdateCar";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
   {
     path: "/cars",
     element: <CarProduct />,
+  },
+  {
+    path: "/create-car",
+    element: <CreateCarForm />,
   },
   {
     path: "/update",

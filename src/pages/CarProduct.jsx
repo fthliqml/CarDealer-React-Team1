@@ -5,6 +5,7 @@ import Pagination from "@/components/CarProduct/Pagination";
 
 import useFetchCars from "@/hooks/useFetchAllCars";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function CarProduct() {
   const limit = 12;
@@ -14,6 +15,12 @@ function CarProduct() {
   const { cars, loading, error, totalData } = useFetchCars(limit, offset);
 
   const totalPages = Math.ceil(totalData / limit);
+
+  const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    navigate("/create-car");
+  };
 
   return (
     <>
@@ -32,6 +39,12 @@ function CarProduct() {
           </div>
         ) : (
           <>
+            <button
+              onClick={handleNavigate}
+              className="bg-blue-500 text-white py-2 px-4 rounded mb-4 ms-5"
+            >
+              Go to Create Car Form
+            </button>
             <CarList cars={cars} />
             {totalPages > 1 && (
               <Pagination

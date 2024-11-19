@@ -15,8 +15,14 @@ const CartProvider = ({ children }) => {
     );
   }
 
+  function resetCart() {
+    setStoredCart([]);
+  }
+
   return (
-    <cartContext.Provider value={{ addToCart, deleteFromCart, storedCart }}>
+    <cartContext.Provider
+      value={{ addToCart, deleteFromCart, storedCart, resetCart }}
+    >
       {children}
     </cartContext.Provider>
   );

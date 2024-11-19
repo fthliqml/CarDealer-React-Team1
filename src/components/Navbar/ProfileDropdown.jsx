@@ -1,8 +1,32 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
+import { useNavigate } from "react-router-dom";
+import { useUser } from "@/contexts/AuthContext";
+import apiInstance from "@/api/apiInstance";
+import { Button } from "@/components/ui/button";
 
 import UserProfile from "@/components/UserProfile/UserProfile";
 
 const ProfileDropdown = () => {
+  const { setIsAuthenticated } = useUser();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      const response = await apiInstance.get("/auth/logout", {
+        withCredentials: true,
+      });
+
+      const resAPI = response.data;
+
+      if (resAPI.isSuccess) {
+        setIsAuthenticated(false);
+        navigate("/login");
+      }
+    } catch (error) {
+      console.error("Logout failed:", error.message);
+    }
+  };
+
   return (
     <Menu as="div" className="relative ml-3">
       <div>
@@ -36,12 +60,13 @@ const ProfileDropdown = () => {
           </a>
         </MenuItem>
         <MenuItem>
-          <a
+          <button
             href="#"
             className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:outline-none"
+            onClick={handleLogout}
           >
             Sign out
-          </a>
+          </button>
         </MenuItem>
       </MenuItems>
     </Menu>

@@ -1,6 +1,7 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 
 import UserProfile from "@/components/UserProfile/UserProfile";
+import handleLogout from "@/services/logoutServices";
 
 const ProfileDropdown = () => {
   return (
@@ -37,8 +38,8 @@ const ProfileDropdown = () => {
         </MenuItem>
         <MenuItem>
           <a
-            href="#"
-            className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:outline-none"
+            onClick={handleLogout}
+            className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:outline-none hover:cursor-pointer"
           >
             Sign out
           </a>
